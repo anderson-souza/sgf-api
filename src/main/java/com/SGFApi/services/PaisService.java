@@ -54,4 +54,8 @@ public class PaisService {
 		buscar(pais.getId());
 	}
 
+	public Pais buscaPaisPeloNome(String nome) {
+		return paisRepository.findByNome(nome);
+	}
+
 }

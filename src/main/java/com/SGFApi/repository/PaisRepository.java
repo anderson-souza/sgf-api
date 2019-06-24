@@ -6,4 +6,6 @@ import com.SGFApi.domain.Pais;
 
 public interface PaisRepository extends JpaRepository<Pais, Long> {
 
+	public Pais findByNome(String nome);
+
 }

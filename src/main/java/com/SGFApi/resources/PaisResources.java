@@ -26,6 +26,7 @@ import com.SGFApi.services.PaisService;
 
 @RestController
 @RequestMapping("/pais")
+@CrossOrigin
 public class PaisResources {
 
 	@Autowired
@@ -36,7 +37,6 @@ public class PaisResources {
 	 * 
 	 * @return Lista com todos os paises que estão no banco de dados
 	 */
-	@CrossOrigin
 	@GetMapping
 	public List<Pais> listar() {
 		return paisService.listar();
