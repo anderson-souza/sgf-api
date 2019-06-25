@@ -44,6 +44,11 @@ public class Pais {
 		this.status = status;
 	}
 
+	public Pais(String nome) {
+		this.nome = nome;
+		this.status = Status.Ativo;
+	}
+
 	public Long getId() {
 		return id;
 	}
