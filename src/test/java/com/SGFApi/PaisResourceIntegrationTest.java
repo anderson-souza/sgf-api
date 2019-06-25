@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -34,6 +35,7 @@ public class PaisResourceIntegrationTest {
 	private PaisService service;
 
 	@Test
+	@WithMockUser(username = "anderson", password = "anderson", roles = "USER")
 	public void givenPais_whenListar_thenReturnJsonArray() throws Exception {
 		Pais pais = new Pais("Brasil");
 
@@ -42,7 +44,7 @@ public class PaisResourceIntegrationTest {
 		given(service.listar()).willReturn(todosPaises);
 
 		mvc.perform(get("/pais").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
-				.andExpect(jsonPath("$", hasSize(1))).andExpect(jsonPath("$[0].name", is(pais.getNome())));
+				.andExpect(jsonPath("$", hasSize(1))).andExpect(jsonPath("$[0].nome", is(pais.getNome())));
 	}
 
 }
