@@ -52,4 +52,8 @@ public class EstadoService {
 		buscar(id);
 	}
 
+	public Estado buscaEstadoPeloNome(String nome) {
+		return estadoRepository.findByNome(nome);
+	}
+
 }

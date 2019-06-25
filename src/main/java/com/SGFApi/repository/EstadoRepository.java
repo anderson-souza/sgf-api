@@ -6,4 +6,6 @@ import com.SGFApi.domain.Estado;
 
 public interface EstadoRepository extends JpaRepository<Estado, Long> {
 
+	public Estado findByNome(String nome);
+
 }

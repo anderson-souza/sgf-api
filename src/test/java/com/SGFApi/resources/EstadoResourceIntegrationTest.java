@@ -1,4 +1,4 @@
-package com.SGFApi;
+package com.SGFApi.resources;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.hasSize;
@@ -20,31 +20,40 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.SGFApi.domain.Estado;
 import com.SGFApi.domain.Pais;
-import com.SGFApi.resources.PaisResources;
+import com.SGFApi.enums.Status;
+import com.SGFApi.services.EstadoService;
 import com.SGFApi.services.PaisService;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(PaisResources.class)
-public class PaisResourceIntegrationTest {
+@WebMvcTest(EstadoResources.class)
+public class EstadoResourceIntegrationTest {
 
 	@Autowired
 	private MockMvc mvc;
 
 	@MockBean
-	private PaisService service;
+	private EstadoService service;
+
+	@MockBean
+	private PaisService paisService;
 
 	@Test
 	@WithMockUser(username = "anderson", password = "anderson", roles = "USER")
-	public void givenPais_whenListar_thenReturnJsonArray() throws Exception {
-		Pais pais = new Pais("Brasil");
+	public void givenEstado_whenListar_thenReturnJsonArray() throws Exception {
+		Estado estado = new Estado();
+		Pais brasil = paisService.salvar(new Pais("Brasil"));
+		estado.setNome("Paraná");
+		estado.setStatus(Status.Ativo);
+		estado.setPais(brasil);
 
-		List<Pais> todosPaises = Arrays.asList(pais);
+		List<Estado> todosEstados = Arrays.asList(estado);
 
-		given(service.listar()).willReturn(todosPaises);
+		given(service.listar()).willReturn(todosEstados);
 
-		mvc.perform(get("/pais").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
-				.andExpect(jsonPath("$", hasSize(1))).andExpect(jsonPath("$[0].nome", is(pais.getNome())));
+		mvc.perform(get("/estado").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+				.andExpect(jsonPath("$", hasSize(1))).andExpect(jsonPath("$[0].nome", is(estado.getNome())));
 	}
 
 }

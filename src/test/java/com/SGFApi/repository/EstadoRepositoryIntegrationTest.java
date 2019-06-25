@@ -1,4 +1,4 @@
-package com.SGFApi;
+package com.SGFApi.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -10,32 +10,37 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.SGFApi.domain.Estado;
 import com.SGFApi.domain.Pais;
 import com.SGFApi.enums.Status;
-import com.SGFApi.repository.PaisRepository;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @ActiveProfiles("test")
-public class PaisRepositoryIntegrationTest {
+public class EstadoRepositoryIntegrationTest {
 
 	@Autowired
 	private TestEntityManager testEntityManager;
 
 	@Autowired
-	private PaisRepository paisRepository;
+	private EstadoRepository estadoRepository;
+
+	@Autowired
+	private PaisRepository paisRespository;
 
 	@Test
-	public void whenFindByNome_thenReturnPais() {
-		Pais pais = new Pais();
-		pais.setNome("Brasil");
-		pais.setStatus(Status.Ativo);
-		testEntityManager.persist(pais);
+	public void whenFindByNome_thenReturnEstado() {
+		Estado estado = new Estado();
+		estado.setNome("Paraná");
+		Pais brasil = paisRespository.save(new Pais("Brasil"));
+		estado.setPais(brasil);
+		estado.setStatus(Status.Ativo);
+		testEntityManager.persist(estado);
 		testEntityManager.flush();
 
-		Pais encontrado = paisRepository.findByNome(pais.getNome());
+		Estado encontrado = estadoRepository.findByNome(estado.getNome());
 
-		assertThat(encontrado.getNome()).isEqualTo(pais.getNome());
+		assertThat(encontrado.getNome()).isEqualTo(estado.getNome());
 	}
 
 }

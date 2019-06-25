@@ -1,4 +1,4 @@
-package com.SGFApi;
+package com.SGFApi.services;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -13,41 +13,46 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.SGFApi.domain.Estado;
 import com.SGFApi.domain.Pais;
 import com.SGFApi.enums.Status;
-import com.SGFApi.repository.PaisRepository;
-import com.SGFApi.services.PaisService;
+import com.SGFApi.repository.EstadoRepository;
 
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")
-public class PaisServiceIntegrationTest {
+public class EstadoServiceIntegrationTest {
 
 	@TestConfiguration
-	static class PaisServiceIntegrationTestContextConfiguration {
+	static class EstadoServiceIntegrationTestContextConfiguration {
 		@Bean
-		public PaisService paisService() {
-			return new PaisService();
+		public EstadoService estadoService() {
+			return new EstadoService();
 		}
 	}
 
 	@Autowired
+	private EstadoService estadoService;
+
+	@MockBean
 	private PaisService paisService;
 
 	@MockBean
-	private PaisRepository paisRepository;
+	private EstadoRepository estadoRepository;
 
 	@Before
 	public void setUp() {
-		Pais brasil = new Pais();
-		brasil.setNome("Brasil");
-		brasil.setStatus(Status.Ativo);
-		Mockito.when(paisRepository.findByNome(brasil.getNome())).thenReturn(brasil);
+		Estado parana = new Estado();
+		Pais brasil = paisService.salvar(new Pais("Brasil"));
+		parana.setNome("Paraná");
+		parana.setStatus(Status.Ativo);
+		parana.setPais(brasil);
+		Mockito.when(estadoRepository.findByNome(parana.getNome())).thenReturn(parana);
 	}
 
 	@Test
-	public void whenValidName_thenPaisShouldBeFound() {
-		String nome = "Brasil";
-		Pais encontrado = paisService.buscaPaisPeloNome(nome);
+	public void whenValidName_thenEstadoShouldBeFound() {
+		String nome = "Paraná";
+		Estado encontrado = estadoService.buscaEstadoPeloNome(nome);
 
 		assertThat(encontrado.getNome()).isEqualTo(nome);
 	}

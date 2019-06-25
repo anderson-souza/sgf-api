@@ -32,6 +32,18 @@ public class Estado {
 	@NotNull(message = "O campo Status é obrigatório")
 	private Status status;
 
+	public Estado(Long id, @Size(min = 2, max = 100, message = "Tamanho do nome deve ser entre 2 e 100") String nome,
+			Pais pais, @NotNull(message = "O campo Status é obrigatório") Status status) {
+		this.id = id;
+		this.nome = nome;
+		this.pais = pais;
+		this.status = status;
+	}
+
+	public Estado() {
+
+	}
+
 	public Long getId() {
 		return id;
 	}
