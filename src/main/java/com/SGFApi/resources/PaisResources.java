@@ -1,13 +1,11 @@
 package com.SGFApi.resources;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.validation.Valid;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
@@ -36,29 +34,21 @@ public class PaisResources {
 	@Autowired
 	private PaisService paisService;
 
-	@Autowired
-	private ModelMapper modelMapper;
-
 	/**
 	 * Função para listar todos os países cadastrados
 	 * 
 	 * @return Lista com todos os paises que estão no banco de dados
 	 */
 	@GetMapping("/V1" + mapping)
-	public List<Pais> listarv1() {
-		return paisService.listar();
+	public List<Pais> listarV1() {
+		return paisService.listarV1();
 	}
 
 	@GetMapping("/V2" + mapping)
 	@ResponseBody
-	public List<PaisDTO> listarv2() {
-		List<Pais> paises = paisService.listar();
-		List<PaisDTO> paisesDTO = new ArrayList<>();
-		for (Pais pais : paises) {
-			paisesDTO.add(modelMapper.map(pais, PaisDTO.class));
-		}
+	public List<PaisDTO> listarV2() {
 
-		return paisesDTO;
+		return paisService.listarV2();
 	}
 
 	/**

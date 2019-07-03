@@ -1,13 +1,16 @@
 package com.SGFApi.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.SGFApi.domain.Pais;
+import com.SGFApi.dto.PaisDTO;
 import com.SGFApi.repository.PaisRepository;
 import com.SGFApi.services.exception.PaisNaoEncontradoException;
 
@@ -17,8 +20,21 @@ public class PaisService {
 	@Autowired
 	private PaisRepository paisRepository;
 
-	public List<Pais> listar() {
+	@Autowired
+	private ModelMapper modelMapper;
+
+	public List<Pais> listarV1() {
 		return paisRepository.findAll();
+	}
+
+	public List<PaisDTO> listarV2() {
+
+		List<Pais> paises = paisRepository.findAll();
+		List<PaisDTO> paisesDTO = new ArrayList<>();
+
+		paises.forEach(pais -> paisesDTO.add(modelMapper.map(pais, PaisDTO.class)));
+
+		return paisesDTO;
 	}
 
 	public Pais buscar(Long id) {

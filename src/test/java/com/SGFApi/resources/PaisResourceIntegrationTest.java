@@ -41,7 +41,7 @@ public class PaisResourceIntegrationTest {
 
 		List<Pais> todosPaises = Arrays.asList(pais);
 
-		given(service.listar()).willReturn(todosPaises);
+		given(service.listarV1()).willReturn(todosPaises);
 
 		mvc.perform(get("/pais").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
 				.andExpect(jsonPath("$", hasSize(1))).andExpect(jsonPath("$[0].nome", is(pais.getNome())));
