@@ -42,7 +42,7 @@ public class EstadoServiceIntegrationTest {
 	@Before
 	public void setUp() {
 		Estado parana = new Estado();
-		Pais brasil = paisService.salvar(new Pais("Brasil"));
+		Pais brasil = paisService.salvarV1(new Pais("Brasil"));
 		parana.setNome("Paraná");
 		parana.setStatus(Status.Ativo);
 		parana.setPais(brasil);

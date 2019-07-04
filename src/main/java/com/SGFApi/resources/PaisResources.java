@@ -29,7 +29,7 @@ import com.SGFApi.services.PaisService;
 @CrossOrigin
 public class PaisResources {
 
-	static final String mapping = "/pais";
+	private static final String PATH = "/pais";
 
 	@Autowired
 	private PaisService paisService;
@@ -39,12 +39,18 @@ public class PaisResources {
 	 * 
 	 * @return Lista com todos os paises que estão no banco de dados
 	 */
-	@GetMapping("/V1" + mapping)
+	@GetMapping("/V1" + PATH)
 	public List<Pais> listarV1() {
 		return paisService.listarV1();
 	}
 
-	@GetMapping("/V2" + mapping)
+	/**
+	 * Função para listar todos os países cadastrados. Nesta versão, passou a
+	 * retornar DTOs ao invés da própria entity.
+	 * 
+	 * @return Lista com todos os paises que estão no banco de dados
+	 */
+	@GetMapping("/V2" + PATH)
 	@ResponseBody
 	public List<PaisDTO> listarV2() {
 
@@ -56,13 +62,26 @@ public class PaisResources {
 	 * 
 	 * @param pais País a ser inserido no banco de dados
 	 */
-	@PostMapping(mapping)
-	public ResponseEntity<Void> cadastrar(@Valid @RequestBody Pais pais) {
+	@PostMapping("/V1" + PATH)
+	public ResponseEntity<Void> cadastrarV1(@Valid @RequestBody Pais pais) {
 
-		pais = paisService.salvar(pais);
-
+		pais = paisService.salvarV1(pais);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(pais.getId()).toUri();
+		return ResponseEntity.created(uri).build();
 
+	}
+
+	/**
+	 * Insere um Pais no banco de dados. Nesta versão, passou a receber um DTO ao
+	 * invés da própria entity.
+	 * 
+	 * @param paisDTO DTO do País a ser inserido no banco de dados
+	 */
+	@PostMapping("/V2" + PATH)
+	public ResponseEntity<Void> cadastrarV2(@Valid @RequestBody PaisDTO paisDTO) {
+
+		Pais pais = paisService.salvarV2(paisDTO);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(pais.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 
 	}
@@ -74,11 +93,26 @@ public class PaisResources {
 	 * @return Caso encontre o país, retorna o mesmo. Caso não encontre, retorna um
 	 *         erro 404
 	 */
-	@GetMapping(mapping + "/{id}")
-	public ResponseEntity<?> buscar(@PathVariable Long id) {
-		Pais pais = paisService.buscar(id);
+	@GetMapping("/V1" + PATH + "/{id}")
+	public ResponseEntity<?> buscarV1(@PathVariable Long id) {
+		Pais pais = paisService.buscarV1(id);
 		CacheControl cacheControl = CacheControl.maxAge(20, TimeUnit.SECONDS);
 		return ResponseEntity.status(HttpStatus.OK).cacheControl(cacheControl).body(pais);
+	}
+
+	/**
+	 * Busca um país específico no banco de dados. Nesta versão, vão retornar um
+	 * DTO.
+	 * 
+	 * @param id ID do país a ser pesquisado
+	 * @return Caso encontre o país, retorna o DTO do mesmo. Caso não encontre,
+	 *         retorna um erro 404
+	 */
+	@GetMapping("/V2" + PATH + "/{id}")
+	public ResponseEntity<?> buscarV2(@PathVariable Long id) {
+		PaisDTO paisDTO = paisService.buscarV2(id);
+		CacheControl cacheControl = CacheControl.maxAge(20, TimeUnit.SECONDS);
+		return ResponseEntity.status(HttpStatus.OK).cacheControl(cacheControl).body(paisDTO);
 	}
 
 	/**
@@ -86,7 +120,7 @@ public class PaisResources {
 	 * 
 	 * @param id ID do país a ser deletado
 	 */
-	@DeleteMapping(mapping + "/{id}")
+	@DeleteMapping("/V1" + PATH + "/{id}")
 	public ResponseEntity<Void> deletar(@PathVariable Long id) {
 		paisService.deletar(id);
 		return ResponseEntity.noContent().build();
@@ -98,10 +132,24 @@ public class PaisResources {
 	 * @param pais Dados do país para atualizar
 	 * @param id   ID do país para atualizar
 	 */
-	@PutMapping(mapping + "/{id}")
-	public ResponseEntity<Void> atualizar(@RequestBody Pais pais, @PathVariable Long id) {
+	@PutMapping("/V1" + PATH + "/{id}")
+	public ResponseEntity<Void> atualizarV1(@RequestBody Pais pais, @PathVariable Long id) {
 		pais.setId(id);
-		paisService.atualizar(pais);
+		paisService.atualizarV1(pais);
+		return ResponseEntity.noContent().build();
+	}
+
+	/**
+	 * Atualiza um pais no banco de dados. Nesta versão, espera um DTO para
+	 * atualizar.
+	 * 
+	 * @param paisDTO Dados do país para atualizar
+	 * @param id      ID do país para atualizar
+	 */
+	@PutMapping("/V2" + PATH + "/{id}")
+	public ResponseEntity<Void> atualizarV2(@RequestBody PaisDTO paisDTO, @PathVariable Long id) {
+		paisDTO.setId(id);
+		paisService.atualizarV2(paisDTO);
 		return ResponseEntity.noContent().build();
 	}
 

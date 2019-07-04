@@ -33,7 +33,7 @@ public class EstadoService {
 
 	public void salvar(Estado estado) {
 		estado.setId(null);
-		paisService.buscar(estado.getPais().getId());
+		paisService.buscarV1(estado.getPais().getId());
 		estadoRepository.save(estado);
 	}
 

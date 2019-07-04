@@ -43,7 +43,7 @@ public class EstadoResourceIntegrationTest {
 	@WithMockUser(username = "anderson", password = "anderson", roles = "USER")
 	public void givenEstado_whenListar_thenReturnJsonArray() throws Exception {
 		Estado estado = new Estado();
-		Pais brasil = paisService.salvar(new Pais("Brasil"));
+		Pais brasil = paisService.salvarV1(new Pais("Brasil"));
 		estado.setNome("Paraná");
 		estado.setStatus(Status.Ativo);
 		estado.setPais(brasil);
