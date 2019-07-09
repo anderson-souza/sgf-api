@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.SGFApi.domain.Pais;
-import com.SGFApi.dto.PaisDTO;
+import com.SGFApi.domain.dto.PaisDTO;
+import com.SGFApi.domain.entity.Pais;
 import com.SGFApi.services.PaisService;
 
 @RestController

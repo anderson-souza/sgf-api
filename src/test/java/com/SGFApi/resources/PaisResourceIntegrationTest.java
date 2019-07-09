@@ -20,7 +20,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.SGFApi.domain.Pais;
+import com.SGFApi.domain.entity.Pais;
 import com.SGFApi.resources.PaisResources;
 import com.SGFApi.services.PaisService;
 

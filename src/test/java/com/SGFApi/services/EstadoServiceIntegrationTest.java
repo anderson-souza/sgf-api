@@ -13,8 +13,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.SGFApi.domain.Estado;
-import com.SGFApi.domain.Pais;
+import com.SGFApi.domain.entity.Estado;
+import com.SGFApi.domain.entity.Pais;
 import com.SGFApi.enums.Status;
 import com.SGFApi.repository.EstadoRepository;
 

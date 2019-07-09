@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import com.SGFApi.domain.Pais;
-import com.SGFApi.dto.PaisDTO;
+import com.SGFApi.domain.dto.PaisDTO;
+import com.SGFApi.domain.entity.Pais;
 import com.SGFApi.repository.PaisRepository;
 import com.SGFApi.services.exception.PaisNaoEncontradoException;
 

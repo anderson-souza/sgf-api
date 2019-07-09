@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.SGFApi.domain.Estado;
-import com.SGFApi.dto.EstadoDTO;
+import com.SGFApi.domain.dto.EstadoDTO;
+import com.SGFApi.domain.entity.Estado;
 import com.SGFApi.services.EstadoService;
 
 @RestController

@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.SGFApi.domain.DetalhesErro;
+import com.SGFApi.domain.entity.DetalhesErro;
 import com.SGFApi.services.exception.EstadoNaoEncontradoException;
 import com.SGFApi.services.exception.PaisNaoEncontradoException;
 

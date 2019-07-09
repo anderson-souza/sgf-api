@@ -20,8 +20,8 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.SGFApi.domain.Estado;
-import com.SGFApi.domain.Pais;
+import com.SGFApi.domain.entity.Estado;
+import com.SGFApi.domain.entity.Pais;
 import com.SGFApi.enums.Status;
 import com.SGFApi.services.EstadoService;
 import com.SGFApi.services.PaisService;

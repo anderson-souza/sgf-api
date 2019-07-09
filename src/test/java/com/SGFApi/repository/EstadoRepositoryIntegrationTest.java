@@ -10,8 +10,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.SGFApi.domain.Estado;
-import com.SGFApi.domain.Pais;
+import com.SGFApi.domain.entity.Estado;
+import com.SGFApi.domain.entity.Pais;
 import com.SGFApi.enums.Status;
 
 @RunWith(SpringRunner.class)

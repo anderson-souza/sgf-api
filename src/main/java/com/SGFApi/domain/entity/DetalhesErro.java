@@ -1,4 +1,4 @@
-package com.SGFApi.domain;
+package com.SGFApi.domain.entity;
 
 public class DetalhesErro {
 

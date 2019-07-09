@@ -1,13 +1,10 @@
-package com.SGFApi.dto;
+package com.SGFApi.domain.dto;
 
-import com.SGFApi.domain.Pais;
 import com.SGFApi.enums.Status;
 
-public class EstadoDTO {
-
+public class PaisDTO {
 	private Long id;
 	private String nome;
-	private Pais pais;
 	private Status status;
 
 	public Long getId() {
@@ -24,14 +21,6 @@ public class EstadoDTO {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public Pais getPais() {
-		return pais;
-	}
-
-	public void setPais(Pais pais) {
-		this.pais = pais;
 	}
 
 	public Status getStatus() {

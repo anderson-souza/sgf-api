@@ -10,7 +10,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.SGFApi.domain.Pais;
+import com.SGFApi.domain.entity.Pais;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest

@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.SGFApi.domain.Estado;
+import com.SGFApi.domain.entity.Estado;
 import com.SGFApi.repository.EstadoRepository;
 import com.SGFApi.services.exception.EstadoNaoEncontradoException;
 
